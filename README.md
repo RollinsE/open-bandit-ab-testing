@@ -4,16 +4,19 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/RollinsE/open-bandit-ab-testing/blob/main/notebooks/00_run_pipeline_colab.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-An end-to-end pipeline that analyses a real A/B test between two recommendation algorithms, then tests whether the winner could have been identified **without** running the A/B test, using off-policy evaluation.
+I wanted to know whether off-policy evaluation can pick a better recommender *before* it's shown to real users. The [Open Bandit Dataset](https://research.zozo.com/data.html) is a rare chance to check: ZOZOTOWN, a Japanese fashion site, ran a random recommender and a Thompson Sampling one side by side on about 27 million impressions, so the real answer is known.
 
-## Overview
-
-The [Open Bandit Dataset](https://research.zozo.com/data.html) contains about 27 million recommendation impressions from ZOZOTOWN, a Japanese fashion e-commerce site, where two recommenders ran in parallel on live traffic: one choosing items at random, the other using Bernoulli Thompson Sampling. Each row records the item shown, its slot, whether it was clicked, and the probability the recommender had of showing it.
-
-This design allows two analyses on the same data:
+So this project does two things with the same data:
 
 - **A/B test**: compare the two recommenders' click-through rates (CTR) directly.
-- **Off-policy evaluation (OPE)**: estimate Thompson Sampling's CTR from the random recommender's logs alone, then check the estimate against its real CTR. This is how new algorithms can be screened before receiving live traffic.
+- **Off-policy evaluation (OPE)**: estimate Thompson Sampling's CTR using only the random recommender's logs, then check that estimate against its real CTR.
+
+## What I found
+
+- **Thompson Sampling clearly won**, lifting click-through by 32–43% across the three campaigns.
+- **Off-policy evaluation picked the right winner every time** (21 out of 21 estimates), using only the random recommender's logs. But it undersold the size of the win for two campaigns: about +33% and +19% for "all" and "men", against a measured +43% and +32%. For "women" it was spot on (+34% vs +32.5%). So it's good enough to tell you *which* algorithm to ship, but I wouldn't use it to promise *how much* better it'll be.
+- **The simple estimators did as well as the clever ones.** Clicks are so rare that the best click model only beat a constant guess by about 1%, so the doubly robust estimators had little extra to work with. The direct method relies entirely on that model, and it was the worst every time.
+- **Choosing the estimator honestly cost almost nothing.** Picking it on data it hadn't seen gave errors within half a percentage point of the best choice in hindsight.
 
 ## Results
 
