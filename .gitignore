@@ -1,0 +1,38 @@
+# Secrets and environment
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Runtime outputs and caches
+outputs/
+logs/
+*.log
+
+# Full Open Bandit Dataset (download it yourself; only the small sample is committed)
+data/open_bandit_dataset/
+data/full/
+data/obd_full/
+
+# Generated archives
+*.zip
+*.tar
+*.tar.gz
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+.venv/
+venv/
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,17 @@
+Third-party material in this repository
+=======================================
+
+src/obp_lite/
+  Re-implements part of the Open Bandit Pipeline (https://github.com/st-tech/zr-obp),
+  Copyright ZOZO Technologies / ZOZO Research, licensed under the Apache License 2.0.
+  The licence text is in src/obp_lite/LICENSE-APACHE-2.0. Changes: rewritten to run
+  on current numpy, pandas and scikit-learn without PyTorch; same estimator formulas.
+
+data/obd/
+  The 10,000-row sample of the Open Bandit Dataset (ZOZO, Inc.), copied from the
+  zr-obp repository, together with the production Beta prior (prior_bts.yaml).
+  The full dataset is available from https://research.zozo.com/data.html.
+  When using the dataset, cite:
+    Saito, Aihara, Matsutani and Narita. "Open Bandit Dataset and Pipeline: Towards
+    Realistic and Reproducible Off-Policy Evaluation." NeurIPS 2021 Datasets and
+    Benchmarks Track. arXiv:2008.07146.

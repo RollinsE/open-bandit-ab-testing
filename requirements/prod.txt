@@ -1,0 +1,23 @@
+# Production requirements - pinned versions for reproducibility
+# (the versions the pipeline and test suite were last run with; Python 3.11+)
+
+# Data manipulation
+numpy==2.5.3
+pandas==3.0.5
+
+# Statistics and ML
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+
+# Marathon extras: floors only, not pinned, because they were not part of the
+# environment the pins above were tested in. Remove any you do not want to run.
+lightgbm>=4.1
+xgboost>=2.0
+catboost>=1.2
+optuna>=3.3
+
+# Visualization (plotly pinned to the last 5.x release, which pairs with kaleido 0.2.1;
+# the figures were also checked against a newer Plotly)
+plotly==5.24.1
+kaleido==0.2.1
